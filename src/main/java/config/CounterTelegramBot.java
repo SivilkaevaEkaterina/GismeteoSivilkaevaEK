@@ -58,7 +58,9 @@ public class CounterTelegramBot extends TelegramLongPollingBot {
                 case "/photo":
                     photoWindow(chatId, memberName);
                     break;
-                default: log.info("Unexpected message");
+                default:
+                    log.info("Unexpected message");
+                    unknownMessage(chatId, memberName);
             }
         }
     }
@@ -79,6 +81,21 @@ public class CounterTelegramBot extends TelegramLongPollingBot {
         }
 
     }
+
+    private void unknownMessage(long chatId, String userName) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("Привет, для того, чтобы начать нажми /start");
+
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e){
+            log.error(e.getMessage());
+        }
+
+    }
+
 
     //погода (weather)
     private void weatherBot (long chatId, String userName) throws IOException {
