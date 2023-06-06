@@ -6,6 +6,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -108,7 +109,7 @@ public class CounterTelegramBot extends TelegramLongPollingBot {
         Element humidity = null;
         Element water = null;
         try {
-            var document = Jsoup.connect("https://www.gismeteo.ru/").get();
+            Document document = Jsoup.connect("https://www.gismeteo.ru/").get();
             //градус
             gradus = document.select("span[class=unit unit_temperature_c]").first();
             //описание погоды (ясно, пасмурно...)
